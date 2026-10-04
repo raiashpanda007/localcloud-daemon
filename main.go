@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"raiashpanda007/local-cloud-daemon/internal/logging"
-	"raiashpanda007/local-cloud-daemon/internal/utils/errors"
+	"raiashpanda007/local-cloud-daemon/internal/utils"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 	}
 	slog.SetDefault(logger)
 
-	sysError := errors.Init()
+	sysError := utils.Init()
 	go sysError.Handler()
 
 	started := time.Now()
