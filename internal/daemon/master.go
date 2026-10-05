@@ -2,12 +2,12 @@ package daemon
 
 import (
 	"context"
+	master_network "raiashpanda007/local-cloud-daemon/internal/master/network"
 	"raiashpanda007/local-cloud-daemon/internal/utils"
 )
 
-// TODO: 1. Discover workers
-// TODO: 2. Save them in memory and keep there context
+func MasterNode(rootCtx context.Context, sysError utils.SystemError) {
 
-func RunMaster(rootCtx context.Context, sysError utils.SystemError) {
+	master_network.DiscoverWorkers(SERVICE_TYPE, WORKER_DOMAIN, rootCtx, sysError)
 
 }

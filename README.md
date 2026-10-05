@@ -13,13 +13,23 @@ stderr and exits with status 1.
 Run locally with human-readable logs:
 
 ```sh
-LOG_LEVEL=debug LOG_FORMAT=text go run ./cmd
+LOG_LEVEL=debug LOG_FORMAT=text go run . worker
 ```
+
+Pass `master` to discover workers or `worker` to publish a worker node:
+
+```sh
+go run . master
+go run . worker
+```
+
+Missing or invalid arguments print usage and exit with status 2.
 
 Build the daemon:
 
 ```sh
-go build -o bin/local-cloud-daemon ./cmd
+go build -o bin/local-cloud-daemon .
+./bin/local-cloud-daemon worker
 ```
 
 The current daemon scaffold waits for SIGINT or SIGTERM and logs startup and

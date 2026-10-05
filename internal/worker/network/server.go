@@ -21,8 +21,9 @@ func StartServer(rootCtx context.Context, sysError utils.SystemError, listener n
 
 	go func() {
 		slog.Info("Started worker server at port :: ", string(listener.Addr().(*net.TCPAddr).Port))
+
 		err := server.Serve(listener)
-		if err != nil {
+		if err != nil && err != http.ErrServerClosed {
 			sysError.NewDaemonError(err, "Cannnot serve the worker server", 3)
 			return
 		}
