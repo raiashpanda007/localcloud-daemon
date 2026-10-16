@@ -30,7 +30,7 @@ func PublishWorker(rootCtx context.Context, sysError utils.SystemError, SERVICE_
 
 	mDNS, err := zeroconf.Register(SERVICE_NAME, SERVICE_TYPE, WORKER_DOMAIN, port, METADATA, nil)
 
-	slog.Info("mDNS server restarted and registered", SERVICE_NAME, " :: ", SERVICE_TYPE)
+	slog.Info("mDNS server restarted and registered", "service_name", SERVICE_NAME, "service_type", SERVICE_TYPE)
 
 	if err != nil {
 		sysError.NewDaemonError(err, "Unable to register worker over mDNS", 2)

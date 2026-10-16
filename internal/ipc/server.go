@@ -45,7 +45,7 @@ func (r *Ipc) SocketServer(centralErrCtx context.Context, sysError utils.SystemE
 		closeListener()
 	}()
 
-	slog.Info("Started socket server at path :: ", socketpath)
+	slog.Info("Started socket server at path :: ", "socketpath", socketpath)
 
 	for {
 		conn, err := listener.Accept()
@@ -84,7 +84,7 @@ func (r *Ipc) SocketServer(centralErrCtx context.Context, sysError utils.SystemE
 	mu.Unlock()
 
 	wg.Wait()
-	slog.Info("Socket server stopped at path :: ", socketpath)
+	slog.Info("Socket server stopped at path :: ", "socketpath", socketpath)
 }
 
 func (r *Ipc) handleConnection(ctx context.Context, conn net.Conn, sysError utils.SystemError) {
@@ -110,6 +110,6 @@ func (r *Ipc) handleConnection(ctx context.Context, conn net.Conn, sysError util
 		}
 
 		receivedData := buf[:n]
-		slog.Info("Received :: ", string(receivedData))
+		slog.Info("Received :: ", "received_data", string(receivedData))
 	}
 }

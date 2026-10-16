@@ -20,7 +20,7 @@ func StartServer(rootCtx context.Context, sysError utils.SystemError, listener n
 	}
 
 	go func() {
-		slog.Info("Started worker server at port :: ", string(listener.Addr().(*net.TCPAddr).Port))
+		slog.Info("Started worker server at port :: ", "port", listener.Addr().(*net.TCPAddr).Port)
 
 		err := server.Serve(listener)
 		if err != nil && err != http.ErrServerClosed {
