@@ -14,4 +14,5 @@ const (
 
 func WorkerNode(rootCtx context.Context, sysError utils.SystemError, state *State) {
 	worker_network.PublishWorker(rootCtx, sysError, SERVICE_TYPE, WORKER_DOMAIN)
+	<-rootCtx.Done()
 }

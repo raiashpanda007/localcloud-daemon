@@ -10,4 +10,5 @@ func MasterNode(rootCtx context.Context, sysError utils.SystemError, state *Stat
 
 	master_network.DiscoverWorkers(SERVICE_TYPE, WORKER_DOMAIN, rootCtx, sysError)
 
+	<-rootCtx.Done()
 }
