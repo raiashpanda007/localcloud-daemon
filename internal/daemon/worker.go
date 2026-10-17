@@ -12,7 +12,6 @@ const (
 	WORKER_DOMAIN = "local."
 )
 
-func WorkerNode(rootCtx context.Context, sysError utils.SystemError) {
-
+func WorkerNode(rootCtx context.Context, sysError utils.SystemError, state *State) {
 	worker_network.PublishWorker(rootCtx, sysError, SERVICE_TYPE, WORKER_DOMAIN)
 }

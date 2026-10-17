@@ -45,6 +45,10 @@ func main() {
 	started := time.Now()
 	logger.Info("daemon started", "pid", os.Getpid(), "role", role)
 
+	// Central state: created once, and only the Run loop below changes it.
+	state := daemon.InitState(daemon.ROLE(role))
+	go state.Run(rootCtx)
+
 	_ipc := ipc.Ipc{}
 	var socketDone sync.WaitGroup
 	socketDone.Add(1)
@@ -55,9 +59,9 @@ func main() {
 
 	switch role {
 	case "master":
-		daemon.MasterNode(rootCtx, sysError)
+		daemon.MasterNode(rootCtx, sysError, state)
 	case "worker":
-		daemon.WorkerNode(rootCtx, sysError)
+		daemon.WorkerNode(rootCtx, sysError, state)
 	}
 
 	stop()

@@ -6,7 +6,7 @@ import (
 	"raiashpanda007/local-cloud-daemon/internal/utils"
 )
 
-func MasterNode(rootCtx context.Context, sysError utils.SystemError) {
+func MasterNode(rootCtx context.Context, sysError utils.SystemError, state *State) {
 
 	master_network.DiscoverWorkers(SERVICE_TYPE, WORKER_DOMAIN, rootCtx, sysError)
 
