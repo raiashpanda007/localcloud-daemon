@@ -6,18 +6,12 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"time"
 
 	"raiashpanda007/local-cloud-daemon/internal/daemon"
-	"raiashpanda007/local-cloud-daemon/internal/ipc"
 	"raiashpanda007/local-cloud-daemon/internal/logging"
 	"raiashpanda007/local-cloud-daemon/internal/utils"
-)
-
-const (
-	SOCKET_SERVER_PATH string = "/tmp/daemon.sock"
 )
 
 func main() {
@@ -49,14 +43,6 @@ func main() {
 	state := daemon.InitState(daemon.ROLE(role))
 	go state.Run(rootCtx)
 
-	_ipc := ipc.Ipc{}
-	var socketDone sync.WaitGroup
-	socketDone.Add(1)
-	go func() {
-		defer socketDone.Done()
-		_ipc.SocketServer(rootCtx, sysError, SOCKET_SERVER_PATH)
-	}()
-
 	switch role {
 	case "master":
 		daemon.MasterNode(rootCtx, sysError, state)
@@ -65,7 +51,6 @@ func main() {
 	}
 
 	stop()
-	socketDone.Wait()
 
 	logger.Info("shutdown requested")
 	logger.Info("daemon stopped", "uptime", time.Since(started).String())
